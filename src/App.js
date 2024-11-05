@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import DynamicTable from './components/DynamicTable';
 import ForecastChart from './components/ForecastChart';
-import './styles.css';  // Importamos los estilos globales para el diseño oscuro
+import './styles.css'; 
 
 function App() {
-  const [step, setStep] = useState(1);  // Estado para manejar el paso (1: configuración, 2: tabla y gráfico)
-  const [rows, setRows] = useState(3);  // Número de productos
-  const [cols, setCols] = useState(3);  // Número de fechas
-  const [data, setData] = useState([]);  // Datos ingresados (ventas reales)
-  const [unit, setUnit] = useState('months');  // Unidad de tiempo (meses, trimestres, etc.)
-  const [productNames, setProductNames] = useState([]);  // Nombres de los productos
-  const [alpha, setAlpha] = useState(0.5);  // Valor de suavización α (inicializamos en 0.5)
+  const [step, setStep] = useState(1);  
+  const [rows, setRows] = useState(3);  
+  const [cols, setCols] = useState(3);  
+  const [data, setData] = useState([]);  
+  const [unit, setUnit] = useState('months'); 
+  const [productNames, setProductNames] = useState([]);  
+  const [alpha, setAlpha] = useState(0.5); 
 
-  // Función para avanzar al siguiente paso (mostrar la tabla y el gráfico)
+  
   const handleSubmitConfig = (e) => {
     e.preventDefault();
     const initialProductNames = Array.from({ length: rows }, (_, index) => `Product ${index + 1}`);
     setProductNames(initialProductNames);
-    setStep(2);  // Cambiamos al paso 2, donde se muestra la tabla y el gráfico
+    setStep(2);  
   };
 
-  // Función que maneja la recepción de los datos ingresados en la tabla (ventas reales)
+  
   const handleDataSubmit = (submittedData) => {
-    setData(submittedData);  // Guardamos los datos originales (ventas reales)
+    setData(submittedData);  
   };
 
-  // Suavización Exponencial Simple
+
   const exponentialSmoothing = (data, alpha) => {
     return data.map((productData) => {
-      let forecast = [productData[0]];  // El primer forecast es el mismo que el primer valor observado
+      let forecast = [productData[0]];  
       for (let i = 1; i < productData.length; i++) {
         const nextForecast = alpha * productData[i] + (1 - alpha) * forecast[i - 1];
         forecast.push(nextForecast);
