@@ -15,6 +15,7 @@ This application was built using **React** for the frontend, and it’s deployed
 
 The project structure is organized as follows:
 
+
 ```plaintext
 SalesForecast/
 ├── public/                    # Public assets, including index.html
